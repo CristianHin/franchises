@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "eaae085f-69c4-46d2-808f-dc92c14893b9",
+		"name": "Franchises",
+		"description": "Documentación franquicias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17513204"
+	},
+	"item": [
+		{
+			"name": "Create Franchise",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"test3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/franchises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"franchises"
+					]
+				},
+				"description": "Permite crear un nueva franquicia, no se puede tener el mismo nombre que otra"
+			},
+			"response": []
+		},
+		{
+			"name": "Associate ProductBranch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stock\": 200\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/branches/1/products/4/association",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"branches",
+						"1",
+						"products",
+						"4",
+						"association"
+					]
+				},
+				"description": "Permite asociar un producto a una sucursal ya que esta puede tener varios productos, pero no se puede asociar dos veces el mismo\n\nLos dos path variables son el id de la sucursal y el id del producto a asociar, además se debe enviar la cantidad de stock para este producto que se está asociando a la sucursal"
+			},
+			"response": []
+		},
+		{
+			"name": "Adjust Stock",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quantity\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/branches/3/products/3/stock/adjustment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"branches",
+						"3",
+						"products",
+						"3",
+						"stock",
+						"adjustment"
+					]
+				},
+				"description": "Permite sumar o restar el numero de productos para un stock de una sucursal"
+			},
+			"response": []
+		},
+		{
+			"name": "Set Stock",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stock\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/branches/3/products/3/stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"branches",
+						"3",
+						"products",
+						"3",
+						"stock"
+					]
+				},
+				"description": "Permite cambiar completamente el stock de un producto para una sucursal"
+			},
+			"response": []
+		},
+		{
+			"name": "Disassociate ProductBranch",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/branches/3/products/4/association",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"branches",
+						"3",
+						"products",
+						"4",
+						"association"
+					]
+				},
+				"description": "Permite eliminar un producto de una sucursal"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"testProduct1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				},
+				"description": "Permite crear un nuevo producto, su nombre no puede repetirse"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Branch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"testbranch1\",\r\n    \"franchiseId\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/branches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"branches"
+					]
+				},
+				"description": "Permite crear una nueva sucursal, su nombre no puede repetirse\n\nTambien se asocia inmediatemente a una franquicia, por es obligatorio el franchiseId"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Franchises",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/franchises",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"franchises"
+					]
+				},
+				"description": "Obtienen todas las franquicias, se puede paginar po las querys page y size, por defecto es 0 y 10 respectivamente"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Max Stock",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/franchises/1/branches/max-stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"franchises",
+						"1",
+						"branches",
+						"max-stock"
+					]
+				},
+				"description": "Permite obtener el producto que más stock tiene en cada sucursal para una franquicia en particular, si muchos tienen el mismo stock maximo, los retorna todos"
+			},
+			"response": []
+		}
+	]
+}
