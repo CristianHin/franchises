@@ -37,15 +37,6 @@ management:
       probes:
         enabled: true
 
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-    charset: UTF-8
-  api-docs:
-    path: /api-docs
-  packages-to-scan: co.com.franchise
-  paths-to-match: /api/v1/**
-
 logging:
   level:
     org.hibernate: ERROR

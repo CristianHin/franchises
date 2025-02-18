@@ -17,8 +17,9 @@ import reactor.core.publisher.Mono;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 
 @Repository
-public class ProductBranchAdapter extends AdapterOperations<ProductBranch, ProductBranchModel, ProductBranchId,
-        ProductBranchJpaRepository> implements ProductBranchRepository {
+public class ProductBranchAdapter
+        extends AdapterOperations<ProductBranch, ProductBranchModel, ProductBranchId, ProductBranchJpaRepository>
+        implements ProductBranchRepository {
     public ProductBranchAdapter(ProductBranchJpaRepository repository) {
         super(repository, ProductBranchMapper.MAPPER);
     }
@@ -32,10 +33,10 @@ public class ProductBranchAdapter extends AdapterOperations<ProductBranch, Produ
                 .stock(stock)
                 .build();
         return Mono.fromCallable(() -> save(productBranch))
-                .onErrorResume(JpaObjectRetrievalFailureException.class, e ->
-                        Mono.error(new FranchiseException(ErrorCodeMessage.PRODUCT_OR_BRANCH_NOT_FOUND)))
-                .onErrorResume(DataIntegrityViolationException.class, e ->
-                        Mono.error(new FranchiseException(ErrorCodeMessage.ENTITY_DUPLICATE)));
+                .onErrorMap(JpaObjectRetrievalFailureException.class,
+                        e -> new FranchiseException(ErrorCodeMessage.PRODUCT_OR_BRANCH_NOT_FOUND))
+                .onErrorMap(DataIntegrityViolationException.class,
+                        e -> new FranchiseException(ErrorCodeMessage.ENTITY_DUPLICATE));
     }
 
     @Override

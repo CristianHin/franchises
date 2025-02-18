@@ -15,7 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 @Repository
 public class BranchAdapter extends AdapterOperations<Branch, BranchModel, Long, BranchJpaRepository>
-implements BranchRepository {
+        implements BranchRepository {
     public BranchAdapter(BranchJpaRepository repository) {
         super(repository, BranchMapper.MAPPER);
     }
@@ -23,8 +23,8 @@ implements BranchRepository {
     @Override
     public Mono<Branch> saveBranch(Branch branch) {
         return Mono.fromCallable(() -> save(branch))
-                .onErrorResume(DataIntegrityViolationException.class, e ->
-                        Mono.error(new FranchiseException(ErrorCodeMessage.ENTITY_DUPLICATE)));
+                .onErrorMap(DataIntegrityViolationException.class,
+                        e -> new FranchiseException(ErrorCodeMessage.ENTITY_DUPLICATE));
     }
 
     @Override

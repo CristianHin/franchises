@@ -30,8 +30,8 @@ public class FranchiseAdapter extends AdapterOperations<Franchise, FranchiseMode
     @Override
     public Mono<Franchise> saveFranchise(Franchise franchise) {
         return Mono.fromCallable(() -> save(franchise))
-                .onErrorResume(DataIntegrityViolationException.class, e ->
-                        Mono.error(new FranchiseException(ErrorCodeMessage.ENTITY_DUPLICATE)));
+                .onErrorMap(DataIntegrityViolationException.class,
+                        e -> new FranchiseException(ErrorCodeMessage.ENTITY_DUPLICATE));
     }
 
     @Override

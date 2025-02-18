@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public class ProductAdapter extends AdapterOperations<Product, ProductModel, Long, ProductJpaRepository>
-implements ProductRepository {
+        implements ProductRepository {
     public ProductAdapter(ProductJpaRepository repository) {
         super(repository, ProductMapper.MAPPER);
     }
@@ -22,8 +22,8 @@ implements ProductRepository {
     @Override
     public Mono<Product> saveProduct(Product product) {
         return Mono.fromCallable(() -> save(product))
-                .onErrorResume(DataIntegrityViolationException.class, e ->
-                        Mono.error(new FranchiseException(ErrorCodeMessage.ENTITY_DUPLICATE)));
+                .onErrorMap(DataIntegrityViolationException.class,
+                        e -> new FranchiseException(ErrorCodeMessage.ENTITY_DUPLICATE));
     }
 
     @Override
@@ -31,6 +31,5 @@ implements ProductRepository {
         return Mono.fromCallable(() -> repository.findByName(name))
                 .map(mapper::modelToDomain);
     }
-
 
 }
